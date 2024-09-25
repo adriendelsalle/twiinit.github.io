@@ -1,0 +1,21 @@
+<article class="card blog-card">
+  <div class="card-body">
+    <h3 class="card-title"><a title="{{ .Title }}">{{ .Title }}</a>
+    </h3>
+    <p>{{ .Content }} </p>
+  </div>
+  <a title="{{ .Title }}">
+    {{ if .Params.image }}
+    {{ with .Params.image }}
+    {{ if fileExists (add `assets/` .) }}
+    {{$imgO:= resources.Get . }}
+    {{$img:= resources.Get . }}
+    {{$img:= $img.Resize "570x "}}
+    {{$imgWebp:= $img.Resize "570x webp"}}
+    <img loading="lazy" decoding="async" width="{{$img.Width}}" height="{{$img.Height}}" src="{{$imgO.RelPermalink}}"
+      alt="portfolio-item" onerror="this.onerror=null;this.src='{{$img.RelPermalink}}'">
+    {{end}}
+    {{end}}
+    {{end}}
+  </a>
+</article>
